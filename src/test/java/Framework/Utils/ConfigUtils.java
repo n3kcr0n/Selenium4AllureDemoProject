@@ -2,6 +2,7 @@ package Framework.Utils;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.Locale;
 import java.util.Properties;
 
 public class ConfigUtils {
@@ -24,7 +25,7 @@ public class ConfigUtils {
     private Properties readProperties(){
         InputStream is = null;
         try {
-            String env = System.getProperty("env","DEV");
+            String env = System.getProperty("env","DEV").toUpperCase(Locale.ROOT);
             switch(env) {
                 case "DEV" -> {
                     is = new FileInputStream("src/test/resources/env/dev.properties");
