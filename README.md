@@ -14,8 +14,9 @@ A test automation framework built with Java, Selenium 4, TestNG, Maven, and REST
 - **REST API Testing:** API automation using REST Assured.
 - **Automatic Screenshots:** Captures screenshots automatically when UI tests fail.
 - **Allure Reporting:** Generates interactive test execution reports.
-- Parallel Test Execution: Runs multiple test methods concurrently using TestNG and Maven Surefire, with up to five 
+- Parallel Test Execution: Runs multiple test methods concurrently using TestNG and Maven Surefire, with up to five
   execution threads configured to improve test execution efficiency.
+
 
 ## Prerequisites
 
@@ -34,7 +35,55 @@ mvn -version
 allure --version
 ```
 
-## Running Tests
+## 📂 Project Architecture
+
+```text
+src/
+└── test/
+    ├── java/
+    │   └── Framework/
+    │       ├── Api/                       # API request handlers and service clients
+    │       ├── BaseTest/                  # Core setup and teardown configurations for tests
+    │       ├── DriverFactory/             # WebDriver initialization and management
+    │       ├── Models/                    # POJOs and data models (e.g., UserModel)
+    │       ├── PageObjects/               # Page Object Model (POM) classes and locators
+    │       │   ├── CreatNewTodoPage.java
+    │       │   ├── RegistrationPage.java
+    │       │   └── TodoPage.java
+    │       ├── Utils/                     # Helper utilities (ConfigUtils, TestUtils)
+    │       └── TestCases/                 # Test suites (UI, API, and Mixed tests)
+    │           ├── MixedUIApiTest.java
+    │           ├── RegisterUserApiTest.java
+    │           ├── RegisterUserUiTest.java
+    │           └── TodoTest.java
+    └── resources/
+        └── env/                           # Environment-specific configuration properties
+            ├── dev.properties
+            ├── qa.properties
+            └── uat.properties
+```
+
+## 🛠️ Component Description
+
+* **`Api/`**: Contains classes responsible for handling backend API requests, enabling hybrid testing workflows.
+* **`BaseTest/`**: Houses the base test configuration class (`BaseTest`)[cite: 1] that manages common preconditions, such as browser setup, execution hooks, and teardown procedures.
+* **`DriverFactory/`**: Implements the Factory design pattern via `DriverFactory`[cite: 1] to cleanly instantiate, configure, and manage parallel or sequential WebDriver instances.
+* **`Models/`**: Contains data objects and POJOs like `UserModel`[cite: 1] to structure data payloads seamlessly across tests.
+* **`PageObjects/`**: Implements the **Page Object Model (POM)** design pattern to separate test logic from UI locators:
+  * `CreatNewTodoPage`[cite: 1]: Handles actions and element locators for creating new to-do items.
+  * `RegistrationPage`[cite: 1]: Manages user registration inputs and form actions.
+  * `TodoPage`[cite: 1]: Handles validation and interaction with the main to-do list interface.
+* **`Utils/`**: Utility and helper classes providing common helper functions:
+  * `ConfigUtils`[cite: 1]: Manages reading configuration and environment property files.
+  * `TestUtils`[cite: 1]: Houses reusable helper methods for test execution.
+* **`TestCases/`**: Contains the actual automated test suites categorized by test type:
+  * `MixedUIApiTest`[cite: 1]: Integration tests combining both UI and API validations.
+  * `RegisterUserApiTest`[cite: 1]: API-level test scenarios for user registration.
+  * `RegisterUserUiTest`[cite: 1]: UI-level automated test scenarios for user registration flows.
+  * `TodoTest`[cite: 1]: Functional test suites for the to-do features.
+* **`resources/env/`**: Environment configuration property files (`dev.properties`, `qa.properties`, `uat.properties`)[cite: 1] used to manage environment-specific parameters dynamically.
+
+### Running Tests
 
 Run the full test suite using the default configuration:
 
@@ -279,8 +328,6 @@ Set `BROWSER` to `CHROME`, `FIREFOX`, or `EDGE` to select the browser for UI tes
 
 **Note:** The values in the properties file are the default configuration. You can override the browser or environment through Maven command-line properties if the framework is configured to support those overrides.
 
-
-
 **Note:** The framework must consistently retrieve the driver using `driver.get()` wherever browser interactions occur. This ensures each test operates on the WebDriver instance assigned to its current thread.
 
 
@@ -297,6 +344,9 @@ Set `BROWSER` to `CHROME`, `FIREFOX`, or `EDGE` to select the browser for UI tes
 | Allure | Test reporting |
 | Page Object Model | UI test architecture |
 | Singleton Pattern | Page object instance management |
+
+
+
 
 ## Author
 
