@@ -21,11 +21,15 @@ public class BaseTest implements ITestListener {
 
     @AfterMethod
     public void tearDown(ITestResult result){
+        WebDriver currentDriver = driver.get();
         if(!result.isSuccess()){
             String caseName = result.getMethod().getMethodName();
             File destination = new File("allure-results"+File.separator+"screenshots"+File.separator+caseName+".png");
             TestUtils.takeScreenShots(driver.get(),destination);
         }
-        driver.get().quit();
+        if (currentDriver != null) {
+            currentDriver.quit();
+            driver.remove();
+        }
     }
 }
