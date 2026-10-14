@@ -14,6 +14,8 @@ A test automation framework built with Java, Selenium 4, TestNG, Maven, and REST
 - **REST API Testing:** API automation using REST Assured.
 - **Automatic Screenshots:** Captures screenshots automatically when UI tests fail.
 - **Allure Reporting:** Generates interactive test execution reports.
+- Parallel Test Execution: Runs multiple test methods concurrently using TestNG and Maven Surefire, with up to five 
+  execution threads configured to improve test execution efficiency.
 
 ## Prerequisites
 
@@ -39,6 +41,39 @@ Run the full test suite using the default configuration:
 ```bash
 mvn clean test
 ```
+
+### Running Specific Tests
+
+**Run all test methods in `MixedUIApiTest`:**
+
+```bash
+mvn clean test -Dtest=MixedUIApiTest
+```
+
+**Run only the API registration and UI deletion test:**
+
+```bash
+mvn clean test -Dtest=MixedUIApiTest#registerViaApiAndDeleteTodo
+```
+
+**Run only the API creation and UI verification test:**
+
+```bash
+mvn clean test -Dtest=MixedUIApiTest#createTodoViaApi
+```
+
+**Run all discovered tests:**
+
+```bash
+mvn clean test
+```
+
+**Notes:**
+- Use the test class name without the `.java` extension.
+- Use the exact test method name after `#`.
+- These commands use Maven Surefire's test selection, not necessarily the test methods configured in `testng.xml`.
+- The configured Surefire parallel execution settings apply when the selected tests run under that configuration.
+
 
 ## Browser Configuration
 
@@ -74,7 +109,7 @@ The framework supports multiple environments through separate property files:
 - QA
 - UAT
 
-Select the target environment using the `env` system property.
+Select the target environment using the `env` system property under `resources` and env folder.
 
 **DEV:**
 ```bash
