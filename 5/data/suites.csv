@@ -1,7 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","4528","Should be able to create to do via Api and view it from the Ui.","Command line suite","2026-10-16","passed","2026-10-16","TestCases.MixedUIApiTest","Command line test","TestCases.MixedUIApiTest","createTodoViaApi"
-"","4125","Should be able to register via API and delete a todo.","Command line suite","2026-10-16","passed","2026-10-16","TestCases.MixedUIApiTest","Command line test","TestCases.MixedUIApiTest","registerViaApiAndDeleteTodo"
-"","3778","Should be able register via API.","Command line suite","2026-10-16","passed","2026-10-16","TestCases.RegisterUserApiTest","Command line test","TestCases.RegisterUserApiTest","registerUserViaApi"
-"","3993","Should be able to register via UI.","Command line suite","2026-10-16","passed","2026-10-16","TestCases.RegisterUserUiTest","Command line test","TestCases.RegisterUserUiTest","registerUser"
-"","4739","Should be able to delete to do via UI.","Command line suite","2026-10-16","passed","2026-10-16","TestCases.TodoTest","Command line test","TestCases.TodoTest","deleteTodo"
-"","4312","Should be able to create to do via UI.","Command line suite","2026-10-16","passed","2026-10-16","TestCases.TodoTest","Command line test","TestCases.TodoTest","createTodo"
