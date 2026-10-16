@@ -346,6 +346,121 @@ Set `BROWSER` to `CHROME`, `FIREFOX`, or `EDGE` to select the browser for UI tes
 | Singleton Pattern | Page object instance management |
 
 
+## Technology Stack and Dependencies
+
+This project is a Java-based Selenium automation framework managed by Apache Maven. It supports UI automation, API testing, test data generation, JSON processing, parallel test execution, and Allure reporting.
+
+### 1. Technology Stack
+
+| Technology | Version | Purpose |
+|---|---|---|
+| Java | 25 | Programming language used to develop the automation framework. |
+| Apache Maven | — | Manages project dependencies, builds the project, and executes tests. |
+| Selenium WebDriver | 4.50.0 | Automates browser interactions for end-to-end UI testing. |
+| TestNG | 7.12.0 | Provides test annotations, assertions, test organization, and execution control. |
+| Rest Assured | 6.0.1 | Supports REST API testing by sending HTTP requests and validating responses. |
+| JavaFaker | 1.0.2 | Generates realistic test data, such as names and email addresses. |
+| Jackson Databind | 3.2.3 | Supports JSON serialization and deserialization for working with JSON data. |
+| Allure TestNG | 3.0.0 | Integrates TestNG test execution with Allure reporting. |
+| Apache Commons IO | 2.22.0 | Provides utility methods for file operations and input/output handling. |
+| AspectJ Weaver | 1.9.25.1 | Provides runtime instrumentation used by the configured Allure reporting integration. |
+| Maven Surefire Plugin | 3.6.0 | Runs automated tests during Maven's test lifecycle and configures parallel execution. |
+
+### 2. Maven Dependencies Explained
+
+#### Selenium Java
+
+**Artifact:** `org.seleniumhq.selenium:selenium-java`
+
+Used to automate web browsers and interact with web elements. It supports operations such as clicking buttons, entering text, navigating pages, and validating UI behavior.
+
+#### TestNG
+
+**Artifact:** `org.testng:testng`
+
+Used to organize and execute test cases through annotations such as `@Test`, `@BeforeMethod`, and `@AfterMethod`. It also provides assertions and test execution configuration.
+
+**Scope:** `test` — available for test compilation and execution.
+
+#### JavaFaker
+
+**Artifact:** `com.github.javafaker:javafaker`
+
+Generates sample data for test scenarios, helping reduce hardcoded test values and making tests easier to reuse.
+
+#### Rest Assured
+
+**Artifact:** `io.rest-assured:rest-assured`
+
+Used for API automation, including sending HTTP requests, checking response status codes, validating response bodies, and testing API behavior.
+
+**Scope:** `test` — available for test compilation and execution.
+
+#### Jackson Databind
+
+**Artifact:** `tools.jackson.core:jackson-databind`
+
+Provides JSON data-binding capabilities for converting between JSON and Java objects. It can support API request and response handling when compatible with the project's JSON-processing setup.
+
+#### Allure TestNG
+
+**Artifact:** `io.qameta.allure:allure-testng`
+
+Integrates Allure reporting with TestNG, allowing test results and supported execution details to be collected for report generation.
+
+#### Apache Commons IO
+
+**Artifact:** `commons-io:commons-io`
+
+Provides reusable file and input/output utilities that can simplify common file-handling operations in the framework.
+
+### 3. Test Execution and Parallelization
+
+The project uses the **Maven Surefire Plugin 3.6.0** to execute automated tests.
+
+The current configuration includes:
+
+```xml
+<parallel>methods</parallel>
+<threadCount>5</threadCount>
+```
+
+- **Parallel mode — methods:** Allows eligible test methods to run concurrently.
+- **Thread count — 5:** Configures up to five parallel test threads for this execution mode.
+
+Parallel execution can reduce total test runtime. However, tests must be designed to avoid shared-state conflicts, such as multiple tests unintentionally using the same WebDriver instance or modifying the same test data.
+
+The configuration also uses the AspectJ Weaver Java agent through the `argLine` property, supporting the project's configured reporting instrumentation.
+
+### 4. Dependency Management
+
+The project uses Maven's `pom.xml` to define dependencies, versions, and build plugins.
+
+It also imports the Allure BOM (Bill of Materials), which helps manage versions of related Allure dependencies centrally.
+
+```xml
+<allure.version>3.0.0</allure.version>
+```
+
+This property is referenced by the Allure BOM and the `allure-testng` dependency, helping keep their configured versions consistent.
+
+### 5. Running the Tests
+
+Run the following command from the project root:
+
+```bash
+mvn clean test
+```
+
+This command removes previous build output and runs the tests through Maven Surefire.
+
+After test execution, generate and view an Allure report using the Allure CLI:
+
+```bash
+allure serve allure-results
+```
+
+The Allure CLI must be installed separately. In CI/CD, GitHub Actions can execute the tests, generate and publish the report, and send email notifications about the pipeline run.
 
 
 ## Author
